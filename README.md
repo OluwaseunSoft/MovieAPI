@@ -1,6 +1,6 @@
 # MovieAPI
 
-This is an project which covers RESTful API, database, auth and form functionality.
+This is a project which covers RESTful API, database, auth and form functionality.
 You will create a simple web application for movies.
 You are to use any technology for both the backend and the frontend for this assessment,
 postgreSQL for database.
