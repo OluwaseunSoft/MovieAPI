@@ -24,24 +24,32 @@ namespace MovieAPI.Controllers
         [RequestSizeLimit(5 * 1024 * 1024)]
         public async Task<IActionResult> SubmitMovie([FromForm] MovieDTO movieDTO)
         {
-            if (movieDTO == null)
+            try
             {
-                return BadRequest(new MovieResponse { Success = false, ErrorCode = "S01", Error = "Invalid post request" });
+                if (movieDTO == null)
+                {
+                    return BadRequest(new MovieResponse { Success = false, ErrorCode = "S01", Error = "Invalid post request" });
+                }
+                if (string.IsNullOrEmpty(Request.GetMultipartBoundary()))
+                {
+                    return BadRequest(new MovieResponse { Success = false, ErrorCode = "S02", Error = "Invalid post header" });
+                }
+                if (movieDTO.Image != null)
+                {
+                    await _movieService.SaveMovieImageAsync(movieDTO);
+                }
+                var movieResponse = await _movieService.CreateMovieAsync(movieDTO);
+                if (!movieResponse.Success)
+                {
+                    return NotFound(movieResponse);
+                }
+                return Ok(movieResponse.Movie);
             }
-            if(string.IsNullOrEmpty(Request.GetMultipartBoundary()))
+            catch(Exception ex)
             {
-                return BadRequest(new MovieResponse { Success = false, ErrorCode = "S02", Error = "Invalid post header" });
+                _logger.LogError(ex.Message.ToString());
             }
-            if (movieDTO.Image != null)
-            {
-                await _movieService.SaveMovieImageAsync(movieDTO);
-            }
-            var movieResponse = await _movieService.CreateMovieAsync(movieDTO);
-            if (!movieResponse.Success)
-            {
-                return NotFound(movieResponse);
-            }
-            return Ok(movieResponse.Movie);
+            return StatusCode(500);
         }
     }
 }
