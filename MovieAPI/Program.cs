@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MovieAPI.Data;
+using MovieAPI.Interfaces;
+using MovieAPI.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ApiDbContext>(opt =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApiDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddTransient<IMovieService, MovieService>();
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
