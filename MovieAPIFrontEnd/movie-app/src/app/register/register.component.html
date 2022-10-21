@@ -1,0 +1,145 @@
+<div class="container mt-3">
+
+
+    <div class="row m-3 justify-content-center">
+  
+  
+      <h2>Sign up</h2>
+  
+  
+    </div>
+  
+  
+    <div class="row">
+  
+  
+      <div class="col-md-12">
+  
+  
+        <div class="card card-container p-3">
+  
+  
+          <form #ngsignup="ngForm" name="form" (ngsubmit)="onSubmit(ngSignup.value)" *ngif="!isSuccessful" novalidate="">
+  
+   
+            <div class="form-group">
+  
+  
+                <label for="firstName">User Name</label>
+    
+    
+                <input type="text" class="form-control" name="firstName" [(ngModel)]="registerRequest.username" required="" #firstname="ngModel">
+    
+    
+                <div class="alert-danger" *ngif="firstName.errors &amp;&amp; ngSignup.submitted">
+    
+    
+                  <div *ngif="firstName.errors['required']">User name is required</div>
+    
+    
+                </div>
+    
+    
+              </div>
+  
+            <div class="form-group">
+  
+  
+              <label for="email">Email</label>
+  
+  
+              <input type="text" class="form-control" name="email" [(ngModel)]="registerRequest.email" email="" #email="ngModel">
+  
+  
+              <div class="alert-danger" *ngif="email.errors &amp;&amp; ngSignup.submitted">
+  
+  
+                <div *ngif="email.errors['email']">Invalid Email</div>
+  
+  
+              </div>
+  
+  
+            </div>
+  
+   
+  
+  
+            <div class="form-group">
+  
+  
+              <label for="password">Password</label>
+  
+  
+              <input type="password" class="form-control" name="password" [(ngModel)]="registerRequest.password" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" #password="ngModel">
+  
+  
+              <div class="alert-danger" *ngif="ngSignup.submitted &amp;&amp; password.errors">
+  
+  
+                <div *ngif="password.errors['required']">Password is required</div>
+  
+  
+                <div *ngif="password.errors['pattern']"> Enter a strong password. At least one number and one uppercase
+  
+  
+                  and
+  
+  
+                  lowercase letter, and at least 8 or more characters.</div>
+  
+  
+              </div>
+  
+  
+            </div>
+  
+  
+  
+            
+  
+  
+            <div class="form-group">
+  
+  
+              <input class="btn btn-primary btn-block" type="submit" value="Sign Up">
+  
+  
+            </div>
+  
+  
+            <div class="alert alert-warning" *ngif="ngSignup.submitted &amp;&amp; isSignUpFailed">
+  
+  
+              Signup failed!<br>{{ errorMessage }}
+  
+  
+            </div>
+  
+  
+          </form>
+  
+  
+          <div class="alert alert-success" *ngif="isSuccessful">
+  
+  
+            Congrats! You have signed up successfully.
+  
+  
+            You can login now to your account.
+  
+  
+          </div>
+  
+  
+        </div>
+  
+  
+      </div>
+  
+  
+    </div>
+  
+  
+  </div>
+  
