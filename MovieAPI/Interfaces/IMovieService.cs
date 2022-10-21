@@ -7,5 +7,6 @@ namespace MovieAPI.Interfaces
     {
         Task SaveMovieImageAsync(MovieDTO movie);
         Task<MovieResponse> CreateMovieAsync(MovieDTO movie);
+        Task<List<Movie>> GetMovies();
     }
 }

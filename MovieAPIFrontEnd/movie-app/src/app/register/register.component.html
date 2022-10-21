@@ -19,22 +19,22 @@
         <div class="card card-container p-3">
   
   
-          <form #ngsignup="ngForm" name="form" (ngsubmit)="onSubmit(ngSignup.value)" *ngif="!isSuccessful" novalidate="">
+          <form #ngsignup="ngForm" name="form" (ngSubmit)="onSubmit(ngsignup.value)" *ngif="!isSuccessful" novalidate="">
   
    
             <div class="form-group">
   
   
-                <label for="firstName">User Name</label>
+                <label for="username">User Name</label>
     
     
-                <input type="text" class="form-control" name="firstName" [(ngModel)]="registerRequest.username" required="" #firstname="ngModel">
+                <input type="text" class="form-control" name="username" [(ngModel)]="registerRequest.username" required="" #username="ngModel">
     
     
-                <div class="alert-danger" *ngif="firstName.errors &amp;&amp; ngSignup.submitted">
+                <div class="alert-danger" *ngif="username.errors &amp;&amp; ngSignup.submitted">
     
     
-                  <div *ngif="firstName.errors['required']">User name is required</div>
+                  <div *ngif="username.errors['required']">User name is required</div>
     
     
                 </div>

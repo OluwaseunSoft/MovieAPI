@@ -20,6 +20,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddTransient<IMovieService, MovieService>();
+builder.Services.AddTransient<ICommentService, CommentService>();
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using MovieAPI.Interfaces;
 using MovieAPI.Model;
 using MovieAPI.Response;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MovieAPI.Controllers
 {
@@ -50,6 +52,20 @@ namespace MovieAPI.Controllers
                 _logger.LogError(ex.Message.ToString());
             }
             return StatusCode(500);
+        }
+
+        [HttpGet("AllMovies")]
+        public async Task<ActionResult<List<Movie>>> GetAll()
+        {
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true
+            };
+            var result = new List<Movie>();
+            result = await _movieService.GetMovies();
+            
+            return Ok(JsonSerializer.Serialize(result, options));
         }
     }
 }

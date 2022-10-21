@@ -12,4 +12,12 @@ namespace MovieAPI.Model
         public Movie Movie { get; set; }
         public int MovieId { get; set; }
     }
+
+    public class CommentDTO
+    {       
+        public string Name { get; set; }
+        public string CommentBody { get; set; }
+        public string DateCreated { get; set; }
+        public int MovieId { get; set; }
+    }
 }

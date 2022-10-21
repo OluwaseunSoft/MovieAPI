@@ -19,7 +19,7 @@
       <div class="card card-container p-3">
 
 
-        <form *ngif="!isLoggedIn" name="form" (ngsubmit)="ngLoginForm.form.valid &amp;&amp; onSubmit()" #ngloginform="ngForm" novalidate="">
+        <form *ngif="!isLoggedIn" name="form" (ngSubmit)="ngloginform.form.valid &amp;&amp; onSubmit()" #ngloginform="ngForm" novalidate="">
 
 
           <div class="form-group">
@@ -31,10 +31,10 @@
             <input type="text" class="form-control" name="username" [(ngModel)]="loginRequest.username" required="" #username="ngModel">
 
 
-            <div class="alert alert-danger" role="alert" *ngif="!email.pristine &amp;&amp; email.errors">
+            <div class="alert alert-danger" role="alert" *ngif="!username.pristine &amp;&amp; username.errors">
 
 
-              Email is required!
+              User name is required!
 
 
             </div>

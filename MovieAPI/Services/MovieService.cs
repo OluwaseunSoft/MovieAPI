@@ -1,4 +1,5 @@
-﻿using MovieAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieAPI.Data;
 using MovieAPI.Helper;
 using MovieAPI.Interfaces;
 using MovieAPI.Model;
@@ -50,7 +51,7 @@ namespace MovieAPI.Services
                 };
                 return new MovieResponse { Success = true, Movie = newMovie };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message.ToString());
             }
@@ -69,10 +70,28 @@ namespace MovieAPI.Services
                 movie.ImagePath = filePath;
                 return;
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        public async Task<List<Movie>> GetMovies()
+        { 
+            List<Movie> movies = new List<Movie>();
+            try
+            {
+                movies = await _context.Movies
+                     .Include(c => c.Genres)
+                     .Include(c=> c.Comments)
+                     .ToListAsync();
+                return movies;
+            }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message.ToString());
             }
+            return movies;
         }
     }
 }
